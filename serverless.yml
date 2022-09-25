@@ -1,0 +1,53 @@
+service: thundra-demo-blog-management
+
+custom:
+  deploymentBucket: thundra-demo-blog-management
+  thundraApiKey: b983b8fb-e108-483a-bcd7-fdabdb16944a
+  stage: dev #Configure your stage if you want
+  region: ap-southeast-1 #Configure your AWS region if you want
+  profile: default #Configure your AWS profile if you want
+
+package:
+  artifact: target/LambdaDynamoDBJava8.jar
+
+provider:
+  name: aws
+  runtime: java8
+  stage: ${self:custom.stage}
+  region: ${self:custom.region}
+  profile: ${self:custom.profile}
+  deploymentBucket: ${self:custom.deploymentBucket}
+  memorySize: 256
+  timeout: 300
+  environment:
+    thundra_apiKey: ${self:custom.thundraApiKey}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - logs:*
+      Resource: [
+        "*"
+      ]
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource: [
+        "*"
+      ]
+
+functions:
+  getAllBooksHandler2:
+      name: getAllBooksHandler2
+      handler: com.amazonaws.serverless.function.BookFunctions::getAllBooksHandler
+  getBooksForTitleq:
+      name: getBooksForTitle2
+      handler: com.amazonaws.serverless.function.BookFunctions::getBooksForTitle
+  getBooksForAuthor2:
+    name: getBooksForAuthor2
+    handler: com.amazonaws.serverless.function.BookFunctions::getBooksForAuthor
+  saveOrUpdateBook2:
+    name: saveOrUpdateBook2
+    handler: com.amazonaws.serverless.function.BookFunctions::saveOrUpdateBook
+  deleteBook2:
+    name: deleteBook2
+    handler: com.amazonaws.serverless.function.BookFunctions::deleteBook
