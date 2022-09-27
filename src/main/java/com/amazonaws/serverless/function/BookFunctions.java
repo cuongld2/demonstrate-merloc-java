@@ -85,11 +85,12 @@ public class BookFunctions {
         log.info("Successfully saved/updated Book");
     }
 
-    public void deleteBook(String bookId) {
+    public String deleteBook(String bookId) {
 
         log.info("Deleting Book for bookId = " + bookId);
         BookDao.deleteBook(bookId);
         log.info("Successfully deleted Book");
+        return "Success";
     }
 
 }

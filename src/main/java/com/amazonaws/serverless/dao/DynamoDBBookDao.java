@@ -109,15 +109,16 @@ public class DynamoDBBookDao implements BookDao {
         return Optional.ofNullable(book);
     }
     @Override
-    public void deleteBook(String bookId) {
+    public String deleteBook(String bookId) {
 
         Optional<Book> oBook = findBookByBookId(bookId);
-        if (oBook.isPresent()) {
+        if (!oBook.isPresent()) {
             mapper.delete(oBook.get());
         }
         else {
             log.error("Could not delete Book, no such bookId");
             throw new IllegalArgumentException("Delete failed for nonexistent Book");
         }
+        return "Success";
     }
 }

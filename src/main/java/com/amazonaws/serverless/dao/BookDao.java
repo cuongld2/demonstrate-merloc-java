@@ -33,6 +33,6 @@ public interface BookDao {
 
     void saveOrUpdateBook(Book Book);
 
-    void deleteBook(String title);
+    String deleteBook(String title);
 
 }
